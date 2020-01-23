@@ -25,7 +25,7 @@ class SendCallBack
     /**
      * @param string $callbackUrl
      * @param bool $paymentStatus
-     * @return int|string
+     * @return int
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function send(string $callbackUrl, bool $paymentStatus)

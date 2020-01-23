@@ -21,7 +21,6 @@ class CardCheck
     public function __construct(string $cardTrue, string $cardFalse)
     {
         $this->cards = [$cardTrue => true, $cardFalse => false];
-        return $this;
     }
 
     /**

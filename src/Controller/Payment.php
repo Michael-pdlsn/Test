@@ -7,7 +7,6 @@ use App\Form\Type\TransactionType;
 use App\Service\CardCheck;
 use App\Service\SendCallBack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,17 +16,22 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class Payment extends AbstractController
 {
+    /** @var CardCheck  */
+    private $cardCheck;
+
+    /** @var SendCallBack  */
+    private $sendCallBack;
 
     public function __construct(CardCheck $cardCheck, SendCallBack $sendCallBack)
     {
         $this->cardCheck = $cardCheck;
-        $this->sendCallback = $sendCallBack;
+        $this->sendCallBack = $sendCallBack;
     }
 
     /**
      * @Route("/form", name="get_form")
      */
-    public function getPaymentForm(Request $request, ParameterBagInterface $parameterBag)
+    public function getPaymentForm(Request $request)
     {
         $refererUrl = $request->headers->get('referer');
         $callbackUrl = $request->get('callbackUrl');
@@ -78,7 +82,7 @@ class Payment extends AbstractController
             $refererUrl = $transaction->getRefererUrl();
 
             $resultStatus = $this->cardCheck->checkCard($cardNumber);
-            $status = $this->sendCallback->send($callBackUrl, $resultStatus);
+            $status = $this->sendCallBack->send($callBackUrl, $resultStatus);
 
             return $this->render('result.html.twig', [
                 'refererUrl' => $refererUrl,
@@ -93,7 +97,6 @@ class Payment extends AbstractController
 
     }
 
-
     /**
      * @Route("/", name="main")
      */
@@ -101,6 +104,4 @@ class Payment extends AbstractController
     {
         return $this->render('test.html.twig');
     }
-
-
 }
