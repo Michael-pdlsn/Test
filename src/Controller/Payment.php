@@ -29,8 +29,8 @@ class Payment extends AbstractController
      */
     public function getPaymentForm(Request $request, ParameterBagInterface $parameterBag)
     {
-        $refererUrl = $request->headers->get('referer') ?? 'http://symfony.localhost/href';
-        $callbackUrl = $request->get('callbackUrl') ?? $refererUrl;
+        $refererUrl = $request->headers->get('referer');
+        $callbackUrl = $request->get('callbackUrl');
 
         $cards = ['true' => $this->getParameter('card_true'), 'false' => $this->getParameter('card_false')];
 
@@ -78,7 +78,6 @@ class Payment extends AbstractController
                 'resultStatus' => $resultStatus
             ]);
 
-
         }
 
         return $this->render('payment.html.twig', [
@@ -86,16 +85,4 @@ class Payment extends AbstractController
         ]);
 
     }
-
-
-    /**
-     * @Route("/href", name="get_href")
-     */
-    public function getHref()
-    {
-        echo "<a href='/form'>FORM</a>";
-        exit();
-    }
-
-
 }
