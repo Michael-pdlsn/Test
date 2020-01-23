@@ -69,9 +69,8 @@ class Payment extends AbstractController
             $callBackUrl = $transaction->getCallBackUrl();
             $refererUrl = $transaction->getRefererUrl();
 
-            $resultStatus = $this->cardCheck->checkCard($cardNumber, $callBackUrl);
+            $resultStatus = $this->cardCheck->checkCard($cardNumber);
             $status = $this->sendCallback->send($callBackUrl, $resultStatus);
-
 
             return $this->render('result.html.twig', [
                 'refererUrl' => $refererUrl,
