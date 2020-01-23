@@ -82,6 +82,8 @@ class Payment extends AbstractController
             $refererUrl = $transaction->getRefererUrl();
 
             $resultStatus = $this->cardCheck->checkCard($cardNumber);
+
+            /** @todo  move this to RabbitMQ Queue */
             $status = $this->sendCallBack->send($callBackUrl, $resultStatus);
 
             return $this->render('result.html.twig', [
