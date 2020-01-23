@@ -40,8 +40,6 @@ class Payment extends AbstractController
           throw new \Exception('empty callbackUrl');
         }
 
-
-
         $cards = ['true' => $this->getParameter('card_true'), 'false' => $this->getParameter('card_false')];
 
         $transaction = new Transaction();
