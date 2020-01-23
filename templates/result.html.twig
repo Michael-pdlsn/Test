@@ -8,7 +8,7 @@
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
               crossorigin="anonymous">
     {% endblock %}
-    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 </head>
 <body>
 {% block body %}
@@ -16,9 +16,9 @@
         <div class="row flex-xl-nowrap">
             <div class="col-md-4">
                 {% if resultStatus %}
-                <p class="alert alert-success">Payment Success</p>
+                    <p class="alert alert-success">Payment Success</p>
                 {% else %}
-                <p class="alert alert-danger">Payment False</p>
+                    <p class="alert alert-danger">Payment False</p>
                 {% endif %}
             </div>
             <div class="col-md-4 bd-content">
@@ -37,7 +37,9 @@
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
     <script>
-        setTimeout(function(){location.href="{{ refereUrl }}"} , 5000);
+        setTimeout(function () {
+            location.href = "{{ refererUrl }}"
+        }, 5000);
     </script>
 {% endblock %}
 </body>

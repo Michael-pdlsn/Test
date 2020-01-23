@@ -4,42 +4,34 @@ namespace App\Service;
 
 use Symfony\Component\HttpClient\HttpClient;
 
-
 /**
- * Class CardCheck
+ * Class SendCallBack
  * @package App\Service
  */
-class CardCheck
+class SendCallBack
 {
-    /**
-     * @var array
-     */
-    private $cards = [];
 
     /** @var HttpClient */
     private $httpClient;
 
     /**
-     * CardCheck constructor.
-     * @param string $cardTrue
-     * @param string $cardFalse
+     * SendCallBack constructor.
      */
-    public function __construct(string $cardTrue, string $cardFalse)
+    public function __construct()
     {
-        $this->cards = [$cardTrue => true, $cardFalse => false];
         $this->httpClient = HttpClient::create();
     }
 
     /**
-     * @param string $card
-     * @return bool
+     * @param string $callbackUrl
+     * @param bool $paymentStatus
+     * @return int
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function checkCard(string $card,string $callbackUrl)
+    public function send(string $callbackUrl, bool $paymentStatus)
     {
-        $result = $this->cards[$card] ?? false;
-        $response = $this->httpClient->request('POST',$callbackUrl, ['payment_status' => $result]);
-        $callbackStatusCode = $response->getStatusCode();
+        $response = $this->httpClient->request('POST', $callbackUrl, ['payment_status' => $paymentStatus]);
 
-        return $result;
+        return $response->getStatusCode();
     }
 }

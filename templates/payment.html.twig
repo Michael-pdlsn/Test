@@ -14,7 +14,25 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row flex-xl-nowrap">
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                {% if  cards is defined and cards is not null %}
+                    <table class="small-table" border="1">
+                        <thead>
+                        <th>Mode</th>
+                        <th>CardNumber</th>
+                        </thead>
+                        <tbody>
+                        {% for type, card in cards %}
+                            <tr>
+                                <td>{{ type }}</td>
+                                <td>{{ card }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                {% endif %}</div>
             <div class="col-md-4 bd-content">
                 {{ form(form) }}
             </div>
