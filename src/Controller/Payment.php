@@ -32,6 +32,16 @@ class Payment extends AbstractController
         $refererUrl = $request->headers->get('referer');
         $callbackUrl = $request->get('callbackUrl');
 
+        if(!$refererUrl){
+          throw new \Exception('empty referer Url');
+        }
+
+        if(!$callbackUrl){
+          throw new \Exception('empty callbackUrl');
+        }
+
+
+
         $cards = ['true' => $this->getParameter('card_true'), 'false' => $this->getParameter('card_false')];
 
         $transaction = new Transaction();
@@ -84,4 +94,15 @@ class Payment extends AbstractController
         ]);
 
     }
+
+
+    /**
+     * @Route("/", name="main")
+     */
+    public function mainPage()
+    {
+        return $this->render('test.html.twig');
+    }
+
+
 }
