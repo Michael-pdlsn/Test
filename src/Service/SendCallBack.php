@@ -30,8 +30,11 @@ class SendCallBack
      */
     public function send(string $callbackUrl, bool $paymentStatus)
     {
-        $response = $this->httpClient->request('POST', $callbackUrl, ['payment_status' => $paymentStatus]);
-
-        return $response->getStatusCode();
+        try {
+            $response = $this->httpClient->request('GET', $callbackUrl, ['query' => ['payment_status' => $paymentStatus]]);
+            return $response->getStatusCode();
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 }

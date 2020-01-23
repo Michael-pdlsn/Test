@@ -30,4 +30,3 @@ services:
             - '%card_true%'
             - '%card_false%'
 
-    App\Service\SendCallBack:
